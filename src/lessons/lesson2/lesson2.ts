@@ -33,6 +33,22 @@ console.log('lesson 2');
 // counter2(); // 1
 // counter(); // 3
 
+function makeCounter (){
+    let i = 1
+    return function (){
+        return i++
+    }
+
+}
+
+const counter = makeCounter();
+counter(); // 1
+counter(); // 2
+const counter2 = makeCounter();
+counter2(); // 1
+counter(); // 3
+
+
 // Task 03
 // Переписать функцию из Task 02 так, что бы она принимала число в качестве аргумента и это число было стартовым значением счетчика
 // и возвращала следующий объект методов:
@@ -40,6 +56,16 @@ console.log('lesson 2');
 // decrease: -1
 // reset: установить счетчик в 0;
 // set: установить счетчик в заданное значение;
+
+function makeCounter2 (n:number){
+    let i = n
+    return function (){
+        return {increase: i+1,
+            decrease: i-1,
+            reset: i=0,
+            set: i=n}
+    }
+}
 
 // Task 04*
 // Реализовать функцию superSum которая принимает число в качестве аргумента, которое указывает на количество слагаемых
@@ -56,8 +82,44 @@ console.log('lesson 2');
 // Task 05
 // решить все задачи по рекурсии которые даны в конце статьи https://learn.javascript.ru/recursion
 
+//1
+function sumTo (n:number):number{
+    if (n === 1) return n
+    else {
+        return n + sumTo(n-1)
+    }
+}
+
+//2
+function fact (n:number):number{
+    if (n === 1) return n
+    else {
+        return n * fact(n-1)
+    }
+}
+
+//3
+function fib (n:number):number{
+    if (n <= 1) return n
+    else {
+        return fib(n-1) + fib(n-2)
+    }
+}
+
+//4
+function printList(list:any):any {
+    console.log(list.value)
+    if (list.next) {
+        return printList(list.next)
+    }
+}
+
+
 // Task 06
 // написать функцию, которая повторяет функционал метода flat массива на всю глубину.
-
+function flatDeep(arr:any, d = 1) {
+    return d > 0 ? arr.reduce((acc:any, val:any) => acc.concat(Array.isArray(val) ? flatDeep(val, d - 1) : val), [])
+        : arr.slice();
+};
 // just a plug
 export default () => {};
