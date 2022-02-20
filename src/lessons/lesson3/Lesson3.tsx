@@ -9,14 +9,22 @@ const Lesson3 = () => {
     const [serachResultByType, setSerachResultByType] = useState('');
 
     const searchFilm = () => {
-        API.searchFilmsByTitle(searchName)
+        API.searchFilmsByTitle(searchName).then(res=>{
+            setSerachResult(JSON.stringify(res.data))
+        })
     };
 
     const searchByType = (e: React.MouseEvent<HTMLButtonElement>) => {
         const type: string = e.currentTarget.dataset.t ? e.currentTarget.dataset.t : '';
-        API.searchFilmsByType(searchNameByType, type)
+        API.searchFilmsByType(searchNameByType, type).then(res=>{
+            setSerachResult(JSON.stringify(res.data))
+        })
     }
-
+    let obj;
+    if (serachResult){
+        obj = JSON.parse(serachResult)
+    }
+    
     return (
         <div>
             <h1>Promises</h1>
@@ -26,6 +34,9 @@ const Lesson3 = () => {
                 <button onClick={searchFilm}>Search</button>
                 <div>
                     {serachResult}
+                </div>
+                <div>
+                    {obj && obj.Title + obj.Year}
                 </div>
             </div>
 
