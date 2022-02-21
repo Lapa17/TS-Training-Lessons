@@ -85,6 +85,22 @@ export const handlePromise:HandlePromiseType = {
 // Создайте функцию print, которая выводит в консоль значение своего параметра
 // Добавьте два метода then и передайте созданные функции.
 
+const prom = new Promise(res=> {
+    setTimeout(() => res("My name is"), 1000);
+    
+}).then((res:any)=> {
+    console.log(onSuccessFunc(res))
+}).then((res)=> {
+    print(res)
+})
+const onSuccessFunc = (value: string) => {
+    return value + ' Pavel'
+}
+const print = (param: any) => {
+    console.log(param)
+}
+
+console.log('PROMISE:', prom)
 
 // Task 7
 // Создайте три промиса. Первый промис возвращает объект { name: "Anna" } через 2с,
@@ -92,6 +108,36 @@ export const handlePromise:HandlePromiseType = {
 // Получите результаты работы промисов, объедините свойства объектов
 // и выведите в консоль {name, age, city}
 
+
+const firstProm = new Promise((res, rej)=> {
+    setTimeout(()=> res({name:'Anna'}), 2000)
+})
+const secondProm = new Promise((res, rej)=> {
+    setTimeout(()=> res({age:16}), 3000)
+})
+const thirdProm = new Promise((res, rej)=> {
+    setTimeout(()=> res({city:''}), 4000)
+})
+
+
+let obj7:any = {};
+firstProm.then((res)=> {
+    console.log("firstProm", res)
+    return obj7 = Object.assign(obj7, res)
+})
+secondProm.then((res)=> {
+    console.log("secondProm", res)
+    return obj7 = Object.assign(obj7, res)
+})
+thirdProm.then((res)=> {
+    console.log("thirdProm", res)
+    return obj7 = Object.assign(obj7, res)
+})
+
+setTimeout(()=> {
+    // const obj7 = Object.assign(prom1, prom2, prom3)
+    console.log(obj7)
+}, 5000) 
 
 
 // just a plug
